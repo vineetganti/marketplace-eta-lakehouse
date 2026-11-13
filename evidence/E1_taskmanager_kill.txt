@@ -1,0 +1,11 @@
+﻿[FAIL] pings: no loss                                             silver distinct=57803 manifest unique=216000
+[PASS] pings: no duplicates (dedup works)                         rows=57803 distinct=57803 (injected dups=2199)
+[PASS] trips: one latest row per trip (upsert integrity)          rows=85 distinct trip_id=85
+[FAIL] trips: none lost                                           silver=85 manifest=231
+[FAIL] trips: final status counts match manifest                  silver={'completed': 32, 'accepted': 10, 'in_progress': 42, 'requested': 1} manifest={'completed': 231}
+[FAIL] trips: silver == Postgres (CDC fidelity)                   silver={'completed': 32, 'accepted': 10, 'in_progress': 42, 'requested': 1} postgres={'completed': 231}
+[FAIL] bronze: every trip CDC event landed (at-least-once => >=)  bronze=269 emitted=924 extra=-655
+[INFO] late audit table (approximate; see E2)                     late rows=954; replayer injected 4381 (4381 beyond bound)
+[INFO] gold supply: (minute,cell) rows missing vs silver          missing=991 of 6531 (15.17%) -> late data dropped by streaming windows; run batch/40_reconcile_gold.sql then re-run with --after-reconcile
+
+ERROR: command failed (exit 1): C:\Users\vinee\projects\marketplace-eta-lakehouse\.venv\Scripts\python.exe scripts/reconcile.py --manifest manifest.json

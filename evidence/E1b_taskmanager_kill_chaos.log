@@ -1,0 +1,28 @@
+2026-11-09T15:43:33Z CHAOS taskmanager-kill: SIGKILL taskmanager
+2026-11-09T15:43:35Z restart policy brings it back; jobs should restore from the last completed checkpoint
+2026-11-09T16:07:31Z CHAOS minio-outage: stopping minio for 45s (checkpoints and Iceberg commits will fail)
+2026-11-09T16:08:18Z minio back. Verify no loss/dups afterwards:  .\tasks reconcile
+2026-11-09T16:30:57Z CHAOS catalog-outage: stopping iceberg-rest for 45s
+2026-11-09T16:31:46Z catalog back.
+2026-11-09T18:02:31Z CHAOS taskmanager-kill: SIGKILL taskmanager
+2026-11-09T18:02:38Z taskmanager container 5s after kill: exited restarts=0
+2026-11-09T18:02:43Z taskmanager container 11s after kill: exited restarts=0
+2026-11-09T18:02:49Z taskmanager container 16s after kill: exited restarts=0
+2026-11-09T18:02:54Z taskmanager container 22s after kill: exited restarts=0
+2026-11-09T18:02:59Z taskmanager container 27s after kill: exited restarts=0
+2026-11-09T18:03:05Z taskmanager container 32s after kill: exited restarts=0
+2026-11-09T18:03:10Z taskmanager container 38s after kill: exited restarts=0
+2026-11-09T18:03:15Z taskmanager container 43s after kill: exited restarts=0
+2026-11-09T18:03:21Z taskmanager container 48s after kill: exited restarts=0
+2026-11-09T18:03:26Z taskmanager container 54s after kill: exited restarts=0
+2026-11-09T18:03:31Z taskmanager container 59s after kill: exited restarts=0
+2026-11-09T18:03:37Z taskmanager container 64s after kill: exited restarts=0
+2026-11-09T18:03:42Z taskmanager container 70s after kill: exited restarts=0
+2026-11-09T18:03:48Z taskmanager container 75s after kill: exited restarts=0
+2026-11-09T18:03:53Z taskmanager container 81s after kill: exited restarts=0
+2026-11-09T18:03:58Z taskmanager container 86s after kill: exited restarts=0
+2026-11-09T18:04:04Z taskmanager container 91s after kill: exited restarts=0
+2026-11-09T18:04:09Z taskmanager container 97s after kill: exited restarts=0
+2026-11-09T18:04:09Z taskmanager did NOT come back within 90 s. Start it:  docker compose up -d taskmanager
+2026-11-09T18:04:19Z jobs: bronze-cdc-raw=RESTARTING gold-demand-supply=RESTARTING silver-dim-versions=RESTARTING silver-pings=RESTARTING silver-trips-upsert=RESTARTING
+2026-11-09T18:14:11Z NOT RECOVERED after 600 s. Do not run fresh: save the state with  .\tasks flink-state  and inspect the Flink UI and the catalog log.

@@ -1,0 +1,206 @@
+name: marketplace-eta-lakehouse
+
+# ---------------------------------------------------------------------------
+# Local lakehouse for the real-time marketplace state + ETA project.
+#
+#   Postgres --WAL--> Debezium --> Redpanda --> Flink SQL --> Iceberg (MinIO)
+#   replayer ------------------------^                          ^
+#                                                   Trino (query + maintenance)
+#
+# Rough memory budget: ~10-11 GB. Give Docker >= 12 GB.
+# Cheaper: stop `trino` when not querying; lower taskmanager.memory.process.size.
+# ---------------------------------------------------------------------------
+
+x-flink-common: &flink-common
+  image: lakehouse-flink:local
+  environment: &flink-env
+    AWS_REGION: us-east-1
+    AWS_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-minioadmin}
+    AWS_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    FLINK_PROPERTIES: |
+      jobmanager.rpc.address: jobmanager
+      jobmanager.memory.process.size: 1600m
+      taskmanager.memory.process.size: 3072m
+      # 5 streaming jobs x parallelism 1 (slot sharing) + headroom for batch reconcile.
+      taskmanager.numberOfTaskSlots: 8
+      parallelism.default: 1
+      state.backend.type: rocksdb
+      state.backend.incremental: true
+      state.checkpoints.dir: s3://flink/checkpoints
+      state.savepoints.dir: s3://flink/savepoints
+      execution.checkpointing.interval: 30 s
+      execution.checkpointing.mode: EXACTLY_ONCE
+      execution.checkpointing.timeout: 5 min
+      execution.checkpointing.min-pause: 5 s
+      execution.checkpointing.externalized-checkpoint-retention: RETAIN_ON_CANCELLATION
+      restart-strategy.type: exponential-delay
+      restart-strategy.exponential-delay.initial-backoff: 2 s
+      restart-strategy.exponential-delay.max-backoff: 60 s
+      s3.endpoint: http://minio:9000
+      s3.path.style.access: true
+      s3.access-key: ${MINIO_ROOT_USER:-minioadmin}
+      s3.secret-key: ${MINIO_ROOT_PASSWORD:-minioadmin}
+  volumes:
+    - ./flink/sql:/opt/flink/sql:ro
+
+services:
+  postgres:
+    image: postgres:16
+    command:
+      - postgres
+      - -c
+      - wal_level=logical
+      - -c
+      - max_wal_senders=10
+      - -c
+      - max_replication_slots=10
+    environment:
+      POSTGRES_USER: lakehouse
+      POSTGRES_PASSWORD: lakehouse
+      POSTGRES_DB: marketplace
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+      - ./infra/postgres/02-catalog-db.sql:/docker-entrypoint-initdb.d/02-catalog-db.sql:ro
+    healthcheck:
+      # Healthy only once the catalog database exists (created by 02-catalog-db.sql).
+      test: ["CMD-SHELL", "psql -h localhost -U lakehouse -d iceberg_catalog -c 'select 1' || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.2.7
+    command:
+      - redpanda
+      - start
+      - --smp=1
+      - --memory=1G
+      - --reserve-memory=0M
+      - --overprovisioned
+      - --node-id=0
+      - --check=false
+      - --kafka-addr=internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --advertise-kafka-addr=internal://redpanda:9092,external://localhost:19092
+    ports:
+      - "19092:19092"   # host clients (replayer)
+      - "9644:9644"     # admin API
+    volumes:
+      - rpdata:/var/lib/redpanda/data
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -E 'Healthy:.+true' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  connect:
+    image: quay.io/debezium/connect:2.7
+    depends_on:
+      redpanda:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      BOOTSTRAP_SERVERS: redpanda:9092
+      GROUP_ID: debezium-connect
+      CONFIG_STORAGE_TOPIC: _connect_configs
+      OFFSET_STORAGE_TOPIC: _connect_offsets
+      STATUS_STORAGE_TOPIC: _connect_status
+      CONFIG_STORAGE_REPLICATION_FACTOR: "1"
+      OFFSET_STORAGE_REPLICATION_FACTOR: "1"
+      STATUS_STORAGE_REPLICATION_FACTOR: "1"
+    ports:
+      - "8083:8083"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8083/connectors || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  minio:
+    # quay.io/minio/* and docker.io/minio/* are no longer pullable (401 / not found),
+    # so use the Chainguard build. Runs as uid 65532 by default; root so the named volume is writable.
+    image: cgr.dev/chainguard/minio:latest
+    user: "0"
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - miniodata:/data
+
+  minio-init:
+    # Chainguard's mc image has no shell, so no alias/retry loop: MC_HOST_local defines the alias,
+    # and restart: on-failure retries until MinIO is accepting connections.
+    image: cgr.dev/chainguard/minio-client:latest
+    depends_on:
+      - minio
+    restart: on-failure
+    environment:
+      MC_HOST_local: http://${MINIO_ROOT_USER:-minioadmin}:${MINIO_ROOT_PASSWORD:-minioadmin}@minio:9000
+    entrypoint: ["mc"]
+    command: ["mb", "-p", "local/warehouse", "local/flink"]
+
+  iceberg-rest:
+    image: tabulario/iceberg-rest:1.6.0
+    # Catalog metadata lives in Postgres (database iceberg_catalog), not SQLite: SQLite is
+    # single-writer and failed with SQLITE_BUSY under five concurrent committers (BUILD_LOG Session 9).
+    restart: unless-stopped
+    depends_on:
+      minio-init:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+    environment:
+      AWS_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-minioadmin}
+      AWS_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
+      AWS_REGION: us-east-1
+      CATALOG_WAREHOUSE: s3://warehouse/
+      CATALOG_IO__IMPL: org.apache.iceberg.aws.s3.S3FileIO
+      CATALOG_S3_ENDPOINT: http://minio:9000
+      CATALOG_S3_PATH__STYLE__ACCESS: "true"
+      # Persist catalog metadata (default is in-memory: restart => orphaned tables).
+      CATALOG_URI: jdbc:postgresql://postgres:5432/iceberg_catalog
+      CATALOG_JDBC_USER: lakehouse
+      CATALOG_JDBC_PASSWORD: lakehouse
+    ports:
+      - "8181:8181"
+
+  jobmanager:
+    <<: *flink-common
+    build:
+      context: .
+      dockerfile: infra/flink/Dockerfile
+    command: jobmanager
+    depends_on:
+      - iceberg-rest
+      - redpanda
+    ports:
+      - "8081:8081"
+
+  taskmanager:
+    <<: *flink-common
+    command: taskmanager
+    depends_on:
+      - jobmanager
+    restart: unless-stopped
+
+  trino:
+    image: trinodb/trino:470
+    depends_on:
+      - iceberg-rest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./infra/trino/catalog:/etc/trino/catalog:ro
+
+volumes:
+  pgdata:
+  rpdata:
+  miniodata:
+  restdata:

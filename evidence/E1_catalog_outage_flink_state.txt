@@ -1,0 +1,66 @@
+﻿captured_utc=17:06:29
+=== bronze-cdc-raw b3bbdee2f02e53246937bacba30dec6a state=RESTARTING
+counts: {"restored":39,"total":16,"in_progress":0,"completed":15,"failed":1}
+latest_completed: id=15 path=s3://flink/checkpoints/b3bbdee2f02e53246937bacba30dec6a/chk-15
+restored: {"id":15,"restore_timestamp":1794243946058,"is_savepoint":false,"external_path":"s3://flink/checkpoints/b3bbdee2f02e53246937bacba30dec6a/chk-15"}
+recent_checkpoints:
+  id=15 COMPLETED trigger=16:31:24 
+  id=14 COMPLETED trigger=16:30:54 
+  id=13 COMPLETED trigger=16:30:24 
+  id=12 COMPLETED trigger=16:29:54 
+  id=11 COMPLETED trigger=16:29:24 
+  id=10 COMPLETED trigger=16:28:54 
+exceptions_kept=16
+latest_exception: org.apache.iceberg.exceptions.CommitStateUnknownException @ 17:05:49
+=== silver-pings 29d0a7a4c906dc0caa34fd23f9ac6897 state=RESTARTING
+counts: {"restored":40,"total":14,"in_progress":0,"completed":14,"failed":0}
+latest_completed: id=14 path=s3://flink/checkpoints/29d0a7a4c906dc0caa34fd23f9ac6897/chk-14
+restored: {"id":14,"restore_timestamp":1794243981876,"is_savepoint":false,"external_path":"s3://flink/checkpoints/29d0a7a4c906dc0caa34fd23f9ac6897/chk-14"}
+recent_checkpoints:
+  id=14 COMPLETED trigger=16:31:24 
+  id=13 COMPLETED trigger=16:30:54 
+  id=12 COMPLETED trigger=16:30:24 
+  id=11 COMPLETED trigger=16:29:54 
+  id=10 COMPLETED trigger=16:29:24 
+  id=9 COMPLETED trigger=16:28:54 
+exceptions_kept=16
+latest_exception: org.apache.iceberg.exceptions.CommitStateUnknownException @ 17:06:25
+=== silver-dim-versions 306c65eed773fba1c9440ef9ff2ae4fe state=RESTARTING
+counts: {"restored":44,"total":14,"in_progress":0,"completed":14,"failed":0}
+latest_completed: id=14 path=s3://flink/checkpoints/306c65eed773fba1c9440ef9ff2ae4fe/chk-14
+restored: {"id":14,"restore_timestamp":1794243930486,"is_savepoint":false,"external_path":"s3://flink/checkpoints/306c65eed773fba1c9440ef9ff2ae4fe/chk-14"}
+recent_checkpoints:
+  id=14 COMPLETED trigger=16:31:22 
+  id=13 COMPLETED trigger=16:30:52 
+  id=12 COMPLETED trigger=16:30:22 
+  id=11 COMPLETED trigger=16:29:52 
+  id=10 COMPLETED trigger=16:29:22 
+  id=9 COMPLETED trigger=16:28:52 
+exceptions_kept=16
+latest_exception: org.apache.iceberg.exceptions.CommitStateUnknownException @ 17:05:33
+=== gold-demand-supply 5c7ba4707420407af732a74066a2975b state=RESTARTING
+counts: {"restored":52,"total":21,"in_progress":0,"completed":13,"failed":8}
+latest_completed: id=13 path=s3://flink/checkpoints/5c7ba4707420407af732a74066a2975b/chk-13
+restored: {"id":13,"restore_timestamp":1794243953070,"is_savepoint":false,"external_path":"s3://flink/checkpoints/5c7ba4707420407af732a74066a2975b/chk-13"}
+recent_checkpoints:
+  id=13 COMPLETED trigger=16:31:12 
+  id=12 COMPLETED trigger=16:30:42 
+  id=11 COMPLETED trigger=16:30:12 
+  id=10 COMPLETED trigger=16:29:42 
+  id=9 COMPLETED trigger=16:29:12 
+  id=8 COMPLETED trigger=16:28:42 
+exceptions_kept=16
+latest_exception: org.apache.iceberg.exceptions.CommitStateUnknownException @ 17:05:56
+=== silver-trips-upsert 79d293df48ecd8cff4c89dde19e3b794 state=RESTARTING
+counts: {"restored":40,"total":15,"in_progress":0,"completed":14,"failed":1}
+latest_completed: id=14 path=s3://flink/checkpoints/79d293df48ecd8cff4c89dde19e3b794/chk-14
+restored: {"id":14,"restore_timestamp":1794243955047,"is_savepoint":false,"external_path":"s3://flink/checkpoints/79d293df48ecd8cff4c89dde19e3b794/chk-14"}
+recent_checkpoints:
+  id=14 COMPLETED trigger=16:31:02 
+  id=13 COMPLETED trigger=16:30:32 
+  id=12 COMPLETED trigger=16:30:02 
+  id=11 COMPLETED trigger=16:29:32 
+  id=10 COMPLETED trigger=16:29:02 
+  id=9 COMPLETED trigger=16:28:32 
+exceptions_kept=16
+latest_exception: org.apache.iceberg.exceptions.CommitStateUnknownException @ 17:05:55

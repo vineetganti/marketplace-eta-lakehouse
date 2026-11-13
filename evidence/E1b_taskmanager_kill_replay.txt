@@ -1,0 +1,1 @@
+{"events_emitted": 219576, "pings_unique": 216000, "pings_dup_emitted": 2199, "pings_late_injected": 4381, "trips_distinct": 231, "trips_final_status": {"completed": 231}, "wall_seconds": 1083.3}

@@ -1,0 +1,9 @@
+﻿[PASS] pings: no loss                                             silver distinct=216000 manifest unique=216000
+[PASS] pings: no duplicates (dedup works)                         rows=216000 distinct=216000 (injected dups=2199)
+[PASS] trips: one latest row per trip (upsert integrity)          rows=231 distinct trip_id=231
+[PASS] trips: none lost                                           silver=231 manifest=231
+[PASS] trips: final status counts match manifest                  silver={'completed': 231} manifest={'completed': 231}
+[PASS] trips: silver == Postgres (CDC fidelity)                   silver={'completed': 231} postgres={'completed': 231}
+[PASS] bronze: every trip CDC event landed (at-least-once => >=)  bronze=924 emitted=924 extra=0
+[INFO] late audit table (approximate; see E2)                     late rows=2263; replayer injected 4381 (4381 beyond bound)
+[INFO] gold supply: (minute,cell) rows missing vs silver          missing=227 of 24252 (0.94%) -> late data dropped by streaming windows; run batch/40_reconcile_gold.sql then re-run with --after-reconcile

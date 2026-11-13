@@ -1,0 +1,7 @@
+# Keep everything LF so shell scripts mounted into Linux containers never get CRLF.
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.parquet binary
+*.jar binary
+*.zip binary

@@ -1,0 +1,21 @@
+captured_utc=2026-11-09T18:00:29Z label=E1b-taskmanager_kill-prereplay
+=== bronze-cdc-raw 76b8619dcd5bcd8b29f8a82df987c173 state=RUNNING
+counts: {"restored":0,"total":6,"in_progress":0,"completed":4,"failed":2}
+latest_completed: id=4 path=s3://flink/checkpoints/76b8619dcd5bcd8b29f8a82df987c173/chk-4
+restored: 
+=== silver-trips-upsert a605aaad3f1a323375b7d5cdc941c2df state=RUNNING
+counts: {"restored":0,"total":4,"in_progress":0,"completed":4,"failed":0}
+latest_completed: id=4 path=s3://flink/checkpoints/a605aaad3f1a323375b7d5cdc941c2df/chk-4
+restored: 
+=== gold-demand-supply 51e541b5b96897118de962fdb95cba67 state=RUNNING
+counts: {"restored":0,"total":3,"in_progress":0,"completed":3,"failed":0}
+latest_completed: id=3 path=s3://flink/checkpoints/51e541b5b96897118de962fdb95cba67/chk-3
+restored: 
+=== silver-pings 9e2e6158b5ac5d2619d97cb681189ea1 state=RUNNING
+counts: {"restored":0,"total":3,"in_progress":0,"completed":3,"failed":0}
+latest_completed: id=3 path=s3://flink/checkpoints/9e2e6158b5ac5d2619d97cb681189ea1/chk-3
+restored: 
+=== silver-dim-versions 94f8fc0c6ef3a40b3dd9b5a8609a8ac8 state=RUNNING
+counts: {"restored":0,"total":3,"in_progress":0,"completed":3,"failed":0}
+latest_completed: id=3 path=s3://flink/checkpoints/94f8fc0c6ef3a40b3dd9b5a8609a8ac8/chk-3
+restored: 

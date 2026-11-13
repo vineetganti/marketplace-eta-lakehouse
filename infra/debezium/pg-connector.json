@@ -1,0 +1,32 @@
+{
+  "name": "pg-marketplace",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+    "plugin.name": "pgoutput",
+
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "lakehouse",
+    "database.password": "lakehouse",
+    "database.dbname": "marketplace",
+
+    "topic.prefix": "pg",
+    "schema.include.list": "public",
+    "table.include.list": "public.drivers,public.merchants,public.trips",
+
+    "slot.name": "lakehouse_slot",
+    "publication.name": "lakehouse_pub",
+    "publication.autocreate.mode": "disabled",
+    "snapshot.mode": "initial",
+
+    "decimal.handling.mode": "double",
+    "tombstones.on.delete": "false",
+    "heartbeat.interval.ms": "10000",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false"
+  }
+}

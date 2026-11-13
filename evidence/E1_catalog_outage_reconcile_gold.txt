@@ -1,0 +1,60 @@
+﻿submitting batch/40_reconcile_gold.sql
+.\tasks : WARNING: Unknown module: jdk.compiler specified to --add-exports
+At line:1 char:430
++ ... ersalTime().ToString('HH:mm:ss'); .\tasks reconcile-gold *>&1 | Out-F ...
++                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: Unknow...o --add-exports:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+Successfully initialized from sql script: file:/opt/flink/sql/init.sql
+Nov 09, 2026 5:48:22 PM org.jline.utils.Log logr
+WARNING: Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+[34;1m[INFO] Executing SQL from file.[0m
+
+Command history file path: /root/.flink-sql-history
+Flink SQL> -- Batch reconcile: rebuild ONE closed day of gold from silver (the source of truth).
+> -- Usage: .\tasks submit batch/40_reconcile_gold.sql DATE=2025-01-15
+> --
+> -- INSERT OVERWRITE ... PARTITION is a single atomic Iceberg replace-partitions commit, so
+> -- readers see either the old or the new day, never a half-written one (compare with
+> -- DELETE + INSERT in Trino, which is two commits). See ADR-0001.
+> --
+> -- Run only for days the streaming jobs have finished writing. Running this while the streaming
+> -- job still appends to the same partition makes the commits conflict / double count (E8)[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> [34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> [34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> -- Supply: distinct pinging drivers per minute per cell, recomputed from ALL silver pings
+> -- (including the ones the streaming windows dropped as late).
+> INSERT OVERWRITE lakehouse.gold.h3_supply_1m PARTITION (`window_date` = '2025-01-15')
+> SELECT
+>   FLOOR(`event_time` TO MINUTE)                        AS `window_start`,
+>   TIMESTAMPADD(MINUTE, 1, FLOOR(`event_time` TO MINUTE)) AS `window_end`,
+>   `h3_r8`,
+>   COUNT(DISTINCT `driver_id`)                          AS `active_drivers`
+> FROM lakehouse.silver.driver_pings
+> WHERE `event_date` = DATE '2025-01-15'
+> GROUP BY FLOOR(`event_time` TO MINUTE)[34;1m[INFO] Complete execution of the SQL update statement.[0m
+
+Flink SQL> 
+> -- Demand: trip requests per minute per pickup cell, from latest-state silver trips.
+> INSERT OVERWRITE lakehouse.gold.h3_demand_1m PARTITION (`window_date` = '2025-01-15')
+> SELECT
+>   FLOOR(`requested_at` TO MINUTE)                        AS `window_start`,
+>   TIMESTAMPADD(MINUTE, 1, FLOOR(`requested_at` TO MINUTE)) AS `window_end`,
+>   `pickup_h3`                                            AS `h3_r8`,
+>   COUNT(*)                                               AS `requests`
+> FROM lakehouse.silver.trips
+> WHERE `requested_date` = DATE '2025-01-15'
+> GROUP BY FLOOR(`requested_at` TO MINUTE)[34;1m[INFO] Complete execution of the SQL update statement.[0m
+
+Flink SQL> 
+Shutting down the session...
+done.

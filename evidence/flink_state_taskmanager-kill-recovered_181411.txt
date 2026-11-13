@@ -1,0 +1,26 @@
+captured_utc=2026-11-09T18:14:11Z label=taskmanager-kill-recovered
+=== silver-trips-upsert a605aaad3f1a323375b7d5cdc941c2df state=RESTARTING
+counts: {"restored":17,"total":9,"in_progress":0,"completed":8,"failed":1}
+latest_completed: id=8 path=s3://flink/checkpoints/a605aaad3f1a323375b7d5cdc941c2df/chk-8
+restored: {"id":8,"restore_timestamp":1794248024087,"is_savepoint":false,"external_path":"s3://flink/checkpoints/a605aaad3f1a323375b7d5cdc941c2df/chk-8"}
+latest_exception: java.util.concurrent.CompletionException at 18:13:44 UTC
+=== silver-pings 9e2e6158b5ac5d2619d97cb681189ea1 state=RESTARTING
+counts: {"restored":17,"total":8,"in_progress":0,"completed":7,"failed":1}
+latest_completed: id=7 path=s3://flink/checkpoints/9e2e6158b5ac5d2619d97cb681189ea1/chk-7
+restored: {"id":7,"restore_timestamp":1794248022986,"is_savepoint":false,"external_path":"s3://flink/checkpoints/9e2e6158b5ac5d2619d97cb681189ea1/chk-7"}
+latest_exception: java.util.concurrent.CompletionException at 18:13:43 UTC
+=== bronze-cdc-raw 76b8619dcd5bcd8b29f8a82df987c173 state=RESTARTING
+counts: {"restored":17,"total":12,"in_progress":0,"completed":9,"failed":3}
+latest_completed: id=9 path=s3://flink/checkpoints/76b8619dcd5bcd8b29f8a82df987c173/chk-9
+restored: {"id":9,"restore_timestamp":1794248019437,"is_savepoint":false,"external_path":"s3://flink/checkpoints/76b8619dcd5bcd8b29f8a82df987c173/chk-9"}
+latest_exception: java.util.concurrent.CompletionException at 18:13:39 UTC
+=== gold-demand-supply 51e541b5b96897118de962fdb95cba67 state=RESTARTING
+counts: {"restored":34,"total":8,"in_progress":0,"completed":7,"failed":1}
+latest_completed: id=7 path=s3://flink/checkpoints/51e541b5b96897118de962fdb95cba67/chk-7
+restored: {"id":7,"restore_timestamp":1794248020397,"is_savepoint":false,"external_path":"s3://flink/checkpoints/51e541b5b96897118de962fdb95cba67/chk-7"}
+latest_exception: java.util.concurrent.CompletionException at 18:13:40 UTC
+=== silver-dim-versions 94f8fc0c6ef3a40b3dd9b5a8609a8ac8 state=RESTARTING
+counts: {"restored":34,"total":9,"in_progress":0,"completed":7,"failed":2}
+latest_completed: id=7 path=s3://flink/checkpoints/94f8fc0c6ef3a40b3dd9b5a8609a8ac8/chk-7
+restored: {"id":7,"restore_timestamp":1794248024088,"is_savepoint":false,"external_path":"s3://flink/checkpoints/94f8fc0c6ef3a40b3dd9b5a8609a8ac8/chk-7"}
+latest_exception: java.util.concurrent.CompletionException at 18:13:44 UTC

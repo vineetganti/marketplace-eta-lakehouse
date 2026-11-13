@@ -1,0 +1,121 @@
+{
+  "version": "2.0.0",
+  "options": {
+    "shell": {
+      "executable": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-Command"
+      ]
+    }
+  },
+  "tasks": [
+    {
+      "label": "setup: create venv + install",
+      "type": "shell",
+      "command": ".\\tasks venv",
+      "problemMatcher": []
+    },
+    {
+      "label": "test + lint",
+      "type": "shell",
+      "command": ".\\tasks test; .\\tasks lint",
+      "problemMatcher": [],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "replayer: dry run",
+      "type": "shell",
+      "command": ".\\tasks replay-dry",
+      "problemMatcher": []
+    },
+    {
+      "label": "stack: up",
+      "type": "shell",
+      "command": ".\\tasks up",
+      "problemMatcher": []
+    },
+    {
+      "label": "stack: init (topics + connector + DDL)",
+      "type": "shell",
+      "command": ".\\tasks init",
+      "problemMatcher": []
+    },
+    {
+      "label": "stack: submit all streaming jobs",
+      "type": "shell",
+      "command": ".\\tasks jobs",
+      "problemMatcher": []
+    },
+    {
+      "label": "stack: fresh (nuke + up + init + jobs)",
+      "type": "shell",
+      "command": ".\\tasks fresh",
+      "problemMatcher": []
+    },
+    {
+      "label": "stack: down",
+      "type": "shell",
+      "command": ".\\tasks down",
+      "problemMatcher": []
+    },
+    {
+      "label": "replayer: 2h synthetic @60x",
+      "type": "shell",
+      "command": ".\\tasks replay",
+      "problemMatcher": []
+    },
+    {
+      "label": "verify: reconcile vs manifest",
+      "type": "shell",
+      "command": ".\\tasks reconcile",
+      "problemMatcher": []
+    },
+    {
+      "label": "verify: batch-reconcile gold (prompts for date)",
+      "type": "shell",
+      "command": ".\\tasks reconcile-gold -SimDate ${input:simDate}",
+      "problemMatcher": []
+    },
+    {
+      "label": "trino: open CLI",
+      "type": "shell",
+      "command": ".\\tasks trino",
+      "problemMatcher": [],
+      "presentation": {
+        "focus": true,
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "chaos: broker loss 60s",
+      "type": "shell",
+      "command": ".\\tasks chaos broker-loss 60",
+      "problemMatcher": []
+    },
+    {
+      "label": "chaos: kill TaskManager",
+      "type": "shell",
+      "command": ".\\tasks chaos taskmanager-kill",
+      "problemMatcher": []
+    },
+    {
+      "label": "logs: follow",
+      "type": "shell",
+      "command": ".\\tasks logs",
+      "problemMatcher": [],
+      "isBackground": true
+    }
+  ],
+  "inputs": [
+    {
+      "id": "simDate",
+      "type": "promptString",
+      "description": "Simulated day to reconcile (YYYY-MM-DD)",
+      "default": "2025-01-15"
+    }
+  ]
+}

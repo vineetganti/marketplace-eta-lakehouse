@@ -1,0 +1,857 @@
+﻿.\tasks :  Container marketplace-eta-lakehouse-connect-1 Stopping 
+At line:1 char:356
++ ... \vinee\projects\marketplace-eta-lakehouse; .\tasks fresh *>&1 | Out-F ...
++                                                ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( Container mark...ect-1 Stopping :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ Container marketplace-eta-lakehouse-taskmanager-1 Stopping 
+ Container marketplace-eta-lakehouse-trino-1 Stopping 
+ Container marketplace-eta-lakehouse-trino-1 Stopped 
+ Container marketplace-eta-lakehouse-trino-1 Removing 
+ Container marketplace-eta-lakehouse-trino-1 Removed 
+ Container marketplace-eta-lakehouse-taskmanager-1 Stopped 
+ Container marketplace-eta-lakehouse-taskmanager-1 Removing 
+ Container marketplace-eta-lakehouse-taskmanager-1 Removed 
+ Container marketplace-eta-lakehouse-jobmanager-1 Stopping 
+ Container marketplace-eta-lakehouse-connect-1 Stopped 
+ Container marketplace-eta-lakehouse-connect-1 Removing 
+ Container marketplace-eta-lakehouse-connect-1 Removed 
+ Container marketplace-eta-lakehouse-jobmanager-1 Stopped 
+ Container marketplace-eta-lakehouse-jobmanager-1 Removing 
+ Container marketplace-eta-lakehouse-jobmanager-1 Removed 
+ Container marketplace-eta-lakehouse-redpanda-1 Stopping 
+ Container marketplace-eta-lakehouse-iceberg-rest-1 Stopping 
+ Container marketplace-eta-lakehouse-iceberg-rest-1 Stopped 
+ Container marketplace-eta-lakehouse-iceberg-rest-1 Removing 
+ Container marketplace-eta-lakehouse-iceberg-rest-1 Removed 
+ Container marketplace-eta-lakehouse-postgres-1 Stopping 
+ Container marketplace-eta-lakehouse-minio-init-1 Stopping 
+ Container marketplace-eta-lakehouse-minio-init-1 Stopped 
+ Container marketplace-eta-lakehouse-minio-init-1 Removing 
+ Container marketplace-eta-lakehouse-minio-init-1 Removed 
+ Container marketplace-eta-lakehouse-minio-1 Stopping 
+ Container marketplace-eta-lakehouse-minio-1 Stopped 
+ Container marketplace-eta-lakehouse-minio-1 Removing 
+ Container marketplace-eta-lakehouse-minio-1 Removed 
+ Container marketplace-eta-lakehouse-postgres-1 Stopped 
+ Container marketplace-eta-lakehouse-postgres-1 Removing 
+ Container marketplace-eta-lakehouse-postgres-1 Removed 
+ Container marketplace-eta-lakehouse-redpanda-1 Stopped 
+ Container marketplace-eta-lakehouse-redpanda-1 Removing 
+ Container marketplace-eta-lakehouse-redpanda-1 Removed 
+ Volume marketplace-eta-lakehouse_rpdata Removing 
+ Volume marketplace-eta-lakehouse_miniodata Removing 
+ Network marketplace-eta-lakehouse_default Removing 
+ Volume marketplace-eta-lakehouse_pgdata Removing 
+ Network marketplace-eta-lakehouse_default Removed 
+ Volume marketplace-eta-lakehouse_miniodata Removed 
+ Volume marketplace-eta-lakehouse_rpdata Removed 
+ Volume marketplace-eta-lakehouse_pgdata Removed 
+ Image lakehouse-flink:local Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 610B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.55kB 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-11
+#3 ...
+
+#4 [auth] library/flink:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [auth] library/maven:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#6 [internal] load metadata for docker.io/library/flink:1.20.0-scala_2.12-java11
+#6 ...
+
+#3 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-11
+#3 DONE 2.3s
+
+#6 [internal] load metadata for docker.io/library/flink:1.20.0-scala_2.12-java11
+#6 DONE 2.3s
+
+#7 [internal] load .dockerignore
+#7 transferring context: 252B done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 DONE 0.0s
+
+#9 [stage-1 1/4] FROM docker.io/library/flink:1.20.0-scala_2.12-java11@sha256:a6791f80748cd11763407fc57189a7678177661dcac1f85d8450942aaa89b549
+#9 resolve docker.io/library/flink:1.20.0-scala_2.12-java11@sha256:a6791f80748cd11763407fc57189a7678177661dcac1f85d8450942aaa89b549 0.1s done
+#9 DONE 0.1s
+
+#10 [udf 1/6] FROM docker.io/library/maven:3.9-eclipse-temurin-11@sha256:7bb84a451705605a47d24eb844d4d9ab03e33e131a507db76aafe25db3907f64
+#10 resolve docker.io/library/maven:3.9-eclipse-temurin-11@sha256:7bb84a451705605a47d24eb844d4d9ab03e33e131a507db76aafe25db3907f64 0.1s done
+#10 DONE 0.1s
+
+#8 [internal] load build context
+#8 transferring context: 366B done
+#8 DONE 0.0s
+
+#11 [udf 6/6] RUN mvn -q -B package -DskipTests
+#11 CACHED
+
+#12 [stage-1 2/4] RUN set -eux; cd /opt/flink/lib;     curl -fsSLO https://repo.maven.apache.org/maven2/org/apache/flink/flink-sql-connector-kafka/3.3.0-1.20/flink-sql-connector-kafka-3.3.0-1.20.jar;     curl -fsSLO https://repo.maven.apache.org/maven2/org/apache/iceberg/iceberg-flink-runtime-1.20/1.7.1/iceberg-flink-runtime-1.20-1.7.1.jar;     curl -fsSLO https://repo.maven.apache.org/maven2/org/apache/iceberg/iceberg-aws-bundle/1.7.1/iceberg-aws-bundle-1.7.1.jar;     curl -fsSLO https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-hadoop-2-uber/2.8.3-10.0/flink-shaded-hadoop-2-uber-2.8.3-10.0.jar
+#12 CACHED
+
+#13 [udf 3/6] COPY udf/pom.xml .
+#13 CACHED
+
+#14 [udf 4/6] RUN mvn -q -B dependency:go-offline
+#14 CACHED
+
+#15 [udf 5/6] COPY udf/src ./src
+#15 CACHED
+
+#16 [stage-1 3/4] RUN mkdir -p /opt/flink/plugins/s3-fs-hadoop     && cp /opt/flink/opt/flink-s3-fs-hadoop-*.jar /opt/flink/plugins/s3-fs-hadoop/
+#16 CACHED
+
+#17 [udf 2/6] WORKDIR /build
+#17 CACHED
+
+#18 [stage-1 4/4] COPY --from=udf /build/target/h3-udf.jar /opt/flink/lib/h3-udf.jar
+#18 CACHED
+
+#19 exporting to image
+#19 exporting layers done
+#19 exporting manifest sha256:4e5dd1052d992d31196e271c8ed6e28c232fd404b7f70c65eb2b9e9a0500dfda done
+#19 exporting config sha256:fa97418d324d45123e480365d47b4c31ad0b7fe6fdd4482577cd68865957b929 done
+#19 exporting attestation manifest sha256:d95401528779bff56d398a112d1d79bcb55474d88d77883a6730a939006ecfc8
+#19 exporting attestation manifest sha256:d95401528779bff56d398a112d1d79bcb55474d88d77883a6730a939006ecfc8 0.0s done
+#19 exporting manifest list sha256:1d65086c72e4dc943c4cffcfab02462bf675c8cb5f93b4f9940590466bf7ec7a 0.0s done
+#19 naming to docker.io/library/lakehouse-flink:local done
+#19 unpacking to docker.io/library/lakehouse-flink:local 0.0s done
+#19 DONE 0.2s
+
+#20 resolving provenance for metadata file
+#20 DONE 0.0s
+ Image lakehouse-flink:local Built 
+ Volume marketplace-eta-lakehouse_miniodata Creating 
+ Volume marketplace-eta-lakehouse_rpdata Creating 
+ Volume marketplace-eta-lakehouse_miniodata Creating 
+ Network marketplace-eta-lakehouse_default Creating 
+ Volume marketplace-eta-lakehouse_rpdata Creating 
+ Network marketplace-eta-lakehouse_default Creating 
+ Volume marketplace-eta-lakehouse_pgdata Creating 
+ Volume marketplace-eta-lakehouse_pgdata Creating 
+ Volume marketplace-eta-lakehouse_rpdata Created 
+ Volume marketplace-eta-lakehouse_rpdata Created 
+ Volume marketplace-eta-lakehouse_miniodata Created 
+ Volume marketplace-eta-lakehouse_miniodata Created 
+ Volume marketplace-eta-lakehouse_pgdata Created 
+ Volume marketplace-eta-lakehouse_pgdata Created 
+ Network marketplace-eta-lakehouse_default Created 
+ Network marketplace-eta-lakehouse_default Created 
+ Container marketplace-eta-lakehouse-postgres-1 Creating 
+ Container marketplace-eta-lakehouse-redpanda-1 Creating 
+ Container marketplace-eta-lakehouse-minio-1 Creating 
+ Container marketplace-eta-lakehouse-redpanda-1 Created 
+ Container marketplace-eta-lakehouse-minio-1 Created 
+ Container marketplace-eta-lakehouse-minio-init-1 Creating 
+ Container marketplace-eta-lakehouse-postgres-1 Created 
+ Container marketplace-eta-lakehouse-connect-1 Creating 
+ Container marketplace-eta-lakehouse-minio-init-1 Created 
+ Container marketplace-eta-lakehouse-iceberg-rest-1 Creating 
+ Container marketplace-eta-lakehouse-connect-1 Created 
+ Container marketplace-eta-lakehouse-iceberg-rest-1 Created 
+ Container marketplace-eta-lakehouse-trino-1 Creating 
+ Container marketplace-eta-lakehouse-jobmanager-1 Creating 
+ Container marketplace-eta-lakehouse-trino-1 Created 
+ Container marketplace-eta-lakehouse-jobmanager-1 Created 
+ Container marketplace-eta-lakehouse-taskmanager-1 Creating 
+ Container marketplace-eta-lakehouse-taskmanager-1 Created 
+ Container marketplace-eta-lakehouse-minio-1 Starting 
+ Container marketplace-eta-lakehouse-redpanda-1 Starting 
+ Container marketplace-eta-lakehouse-postgres-1 Starting 
+ Container marketplace-eta-lakehouse-minio-1 Started 
+ Container marketplace-eta-lakehouse-minio-init-1 Starting 
+ Container marketplace-eta-lakehouse-redpanda-1 Started 
+ Container marketplace-eta-lakehouse-postgres-1 Started 
+ Container marketplace-eta-lakehouse-redpanda-1 Waiting 
+ Container marketplace-eta-lakehouse-postgres-1 Waiting 
+ Container marketplace-eta-lakehouse-minio-init-1 Started 
+ Container marketplace-eta-lakehouse-postgres-1 Waiting 
+ Container marketplace-eta-lakehouse-minio-init-1 Waiting 
+ Container marketplace-eta-lakehouse-minio-init-1 Exited 
+ Container marketplace-eta-lakehouse-postgres-1 Healthy 
+ Container marketplace-eta-lakehouse-iceberg-rest-1 Starting 
+ Container marketplace-eta-lakehouse-postgres-1 Healthy 
+ Container marketplace-eta-lakehouse-iceberg-rest-1 Started 
+ Container marketplace-eta-lakehouse-jobmanager-1 Starting 
+ Container marketplace-eta-lakehouse-trino-1 Starting 
+ Container marketplace-eta-lakehouse-jobmanager-1 Started 
+ Container marketplace-eta-lakehouse-taskmanager-1 Starting 
+ Container marketplace-eta-lakehouse-trino-1 Started 
+ Container marketplace-eta-lakehouse-taskmanager-1 Started 
+ Container marketplace-eta-lakehouse-redpanda-1 Healthy 
+ Container marketplace-eta-lakehouse-connect-1 Starting 
+ Container marketplace-eta-lakehouse-connect-1 Started 
+waiting for http://localhost:8083/connectors ....... ok
+TOPIC            STATUS
+pg.public.trips  OK
+TOPIC              STATUS
+pg.public.drivers  OK
+TOPIC                STATUS
+pg.public.merchants  OK
+TOPIC         STATUS
+driver.pings  OK
+NAME                 PARTITIONS  REPLICAS
+_connect_configs     1           1
+_connect_offsets     25          1
+_connect_status      5           1
+driver.pings         3           1
+pg.public.drivers    3           1
+pg.public.merchants  3           1
+pg.public.trips      3           1
+waiting for http://localhost:8083/connectors  ok
+{
+    "name":  "pg-marketplace",
+    "config":  {
+                   "connector.class":  "io.debezium.connector.postgresql.PostgresConnector",
+                   "tasks.max":  "1",
+                   "plugin.name":  "pgoutput",
+                   "database.hostname":  "postgres",
+                   "database.port":  "5432",
+                   "database.user":  "lakehouse",
+                   "database.password":  "lakehouse",
+                   "database.dbname":  "marketplace",
+                   "topic.prefix":  "pg",
+                   "schema.include.list":  "public",
+                   "table.include.list":  "public.drivers,public.merchants,public.trips",
+                   "slot.name":  "lakehouse_slot",
+                   "publication.name":  "lakehouse_pub",
+                   "publication.autocreate.mode":  "disabled",
+                   "snapshot.mode":  "initial",
+                   "decimal.handling.mode":  "double",
+                   "tombstones.on.delete":  "false",
+                   "heartbeat.interval.ms":  "10000",
+                   "key.converter":  "org.apache.kafka.connect.json.JsonConverter",
+                   "key.converter.schemas.enable":  "false",
+                   "value.converter":  "org.apache.kafka.connect.json.JsonConverter",
+                   "value.converter.schemas.enable":  "false",
+                   "name":  "pg-marketplace"
+               },
+    "tasks":  [
+
+              ],
+    "type":  "source"
+}
+{
+    "name":  "pg-marketplace",
+    "connector":  {
+                      "state":  "RUNNING",
+                      "worker_id":  "172.18.0.9:8083"
+                  },
+    "tasks":  [
+                  {
+                      "id":  0,
+                      "state":  "RUNNING",
+                      "worker_id":  "172.18.0.9:8083"
+                  }
+              ],
+    "type":  "source"
+}
+waiting for http://localhost:8181/v1/config  ok
+waiting for http://localhost:8081/overview  ok
+submitting ddl/01_iceberg_tables.sql
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+Successfully initialized from sql script: file:/opt/flink/sql/init.sql
+Nov 09, 2026 5:57:02 PM org.jline.utils.Log logr
+WARNING: Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+[34;1m[INFO] Executing SQL from file.[0m
+
+Command history file path: /root/.flink-sql-history
+Flink SQL> -- Run once: .\tasks ddl
+> -- All tables are Iceberg format-version 2 (required for row-level deletes / upserts).
+> --
+> -- Streaming sinks commit one snapshot per checkpoint (30 s => ~2,880 snapshots/day/table)[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> [34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> [34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> -- ---------------------------------------------------------------- BRONZE
+> -- Raw Debezium envelopes, untouched. This is your replay source for backfills.
+> CREATE TABLE IF NOT EXISTS lakehouse.bronze.cdc_raw (
+>   `topic`           STRING,
+>   `kafka_partition` INT,
+>   `kafka_offset`    BIGINT,
+>   `kafka_ts`        TIMESTAMP(3),
+>   `payload`         STRING,
+>   `ingest_date`     DATE
+> ) PARTITIONED BY (`ingest_date`) WITH (
+>   'format-version' = '2',
+>   'write.metadata.delete-after-commit.enabled' = 'true',
+>   'write.metadata.previous-versions-max' = '20'
+> )[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> -- ---------------------------------------------------------------- SILVER
+> -- Latest state per trip. UPSERT table.
+> -- Iceberg/Flink rule: the PK must include every partition source column, and the partition
+> -- column must be IMMUTABLE per key (requested_date never changes for a trip). Otherwise the
+> -- equality delete lands in the wrong partition and you get duplicate "latest" rows. See ADR-0002.
+> CREATE TABLE IF NOT EXISTS lakehouse.silver.trips (
+>   `trip_id`             BIGINT,
+>   `requested_date`      DATE,
+>   `rider_id`            BIGINT,
+>   `driver_id`           BIGINT,
+>   `merchant_id`         BIGINT,
+>   `service_type`        STRING,
+>   `status`              STRING,
+>   `pickup_lat`          DOUBLE,
+>   `pickup_lon`          DOUBLE,
+>   `dropoff_lat`         DOUBLE,
+>   `dropoff_lon`         DOUBLE,
+>   `pickup_h3`           STRING,
+>   `dropoff_h3`          STRING,
+>   `requested_at`        TIMESTAMP(3),
+>   `accepted_at`         TIMESTAMP(3),
+>   `picked_up_at`        TIMESTAMP(3),
+>   `completed_at`        TIMESTAMP(3),
+>   `quoted_eta_sec`      INT,
+>   `actual_duration_sec` INT,
+>   `fare_amount`         DOUBLE,
+>   `distance_km`         DOUBLE,
+>   `updated_at`          TIMESTAMP(3),
+>   PRIMARY KEY (`trip_id`, `requested_date`) NOT ENFORCED
+> ) PARTITIONED BY (`requested_date`) WITH (
+>   'format-version' = '2',
+>   'write.upsert.enabled' = 'true',
+>   'write.metadata.delete-after-commit.enabled' = 'true',
+>   'write.metadata.previous-versions-max' = '20'
+> )[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> -- Deduplicated, append-only GPS pings. Event-date partitioned.
+> CREATE TABLE IF NOT EXISTS lakehouse.silver.driver_pings (
+>   `driver_id`  BIGINT,
+>   `seq`        BIGINT,
+>   `event_time` TIMESTAMP(3),
+>   `lat`        DOUBLE,
+>   `lon`        DOUBLE,
+>   `h3_r8`      STRING,
+>   `speed_kph`  DOUBLE,
+>   `event_date` DATE
+> ) PARTITIONED BY (`event_date`) WITH (
+>   'format-version' = '2',
+>   'write.metadata.delete-after-commit.enabled' = 'true',
+>   'write.metadata.previous-versions-max' = '20'
+> )[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> -- Pings that arrived after their 1-minute window already closed (see 21_silver_pings.sql).
+> -- Audit trail + the work-list for targeted reconciliation of gold.
+> CREATE TABLE IF NOT EXISTS lakehouse.silver.driver_pings_late (
+>   `driver_id`    BIGINT,
+>   `seq`          BIGINT,
+>   `event_time`   TIMESTAMP(3),
+>   `lat`          DOUBLE,
+>   `lon`          DOUBLE,
+>   `watermark_at` TIMESTAMP(3),
+>   `late_by_sec`  INT,
+>   `event_date`   DATE
+> ) PARTITIONED BY (`event_date`) WITH ('format-version' = '2')[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> -- Append-only version logs for SCD2 dimensions (SCD2 itself is a Trino view; see ADR-0003).
+> CREATE TABLE IF NOT EXISTS lakehouse.silver.driver_versions (
+>   `driver_id`    BIGINT,
+>   `version_ts`   TIMESTAMP(3),
+>   `op`           STRING,
+>   `vehicle_type` STRING,
+>   `city`         STRING,
+>   `rating`       DOUBLE,
+>   `status`       STRING,
+>   `source_lsn`   BIGINT,
+>   `version_date` DATE
+> ) PARTITIONED BY (`version_date`) WITH ('format-version' = '2')[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> CREATE TABLE IF NOT EXISTS lakehouse.silver.merchant_versions (
+>   `merchant_id`    BIGINT,
+>   `version_ts`     TIMESTAMP(3),
+>   `op`             STRING,
+>   `category`       STRING,
+>   `tier`           STRING,
+>   `city`           STRING,
+>   `lat`            DOUBLE,
+>   `lon`            DOUBLE,
+>   `h3_r8`          STRING,
+>   `commission_pct` DOUBLE,
+>   `source_lsn`     BIGINT,
+>   `version_date`   DATE
+> ) PARTITIONED BY (`version_date`) WITH ('format-version' = '2')[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> -- ---------------------------------------------------------------- GOLD
+> -- 1-minute tumbling windows per H3 res-8 cell. Append-only (window emitted once, at watermark).
+> -- Late data is NOT folded in by the streaming job; the batch reconcile job repairs it.
+> CREATE TABLE IF NOT EXISTS lakehouse.gold.h3_demand_1m (
+>   `window_start` TIMESTAMP(3),
+>   `window_end`   TIMESTAMP(3),
+>   `h3_r8`        STRING,
+>   `requests`     BIGINT,
+>   `window_date`  DATE
+> ) PARTITIONED BY (`window_date`) WITH ('format-version' = '2')[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> CREATE TABLE IF NOT EXISTS lakehouse.gold.h3_supply_1m (
+>   `window_start`   TIMESTAMP(3),
+>   `window_end`     TIMESTAMP(3),
+>   `h3_r8`          STRING,
+>   `active_drivers` BIGINT,
+>   `window_date`    DATE
+> ) PARTITIONED BY (`window_date`) WITH ('format-version' = '2')[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+Shutting down the session...
+done.
+waiting for http://localhost:8081/overview  ok
+submitting jobs/10_bronze_cdc_raw.sql
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+Successfully initialized from sql script: file:/opt/flink/sql/init.sql
+Nov 09, 2026 5:57:15 PM org.jline.utils.Log logr
+WARNING: Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+[34;1m[INFO] Executing SQL from file.[0m
+
+Command history file path: /root/.flink-sql-history
+Flink SQL> [34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> CREATE TEMPORARY TABLE src_cdc_raw (
+>   `topic`           STRING          METADATA VIRTUAL,
+>   `kafka_partition` INT             METADATA FROM 'partition' VIRTUAL,
+>   `kafka_offset`    BIGINT          METADATA FROM 'offset'    VIRTUAL,
+>   `kafka_ts`        TIMESTAMP_LTZ(3) METADATA FROM 'timestamp' VIRTUAL,
+>   `payload`         STRING
+> ) WITH (
+>   'connector' = 'kafka',
+>   'topic-pattern' = 'pg\.public\..*',
+>   'properties.bootstrap.servers' = 'redpanda:9092',
+>   'properties.group.id' = 'flink-bronze-cdc',
+>   'scan.startup.mode' = 'earliest-offset',
+>   'scan.topic-partition-discovery.interval' = '60 s',
+>   'format' = 'raw'
+> )[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> INSERT INTO lakehouse.bronze.cdc_raw
+> SELECT
+>   `topic`,
+>   `kafka_partition`,
+>   `kafka_offset`,
+>   CAST(`kafka_ts` AS TIMESTAMP(3)),
+>   `payload`,
+>   CAST(CAST(`kafka_ts` AS TIMESTAMP(3)) AS DATE)[34;1m[INFO] Submitting SQL update statement to the cluster...[0m
+[34;1m[INFO] SQL update statement has been successfully submitted to the cluster:[0m
+Job ID: 76b8619dcd5bcd8b29f8a82df987c173
+
+
+Flink SQL> 
+Shutting down the session...
+done.
+submitting jobs/20_silver_trips.sql
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+Successfully initialized from sql script: file:/opt/flink/sql/init.sql
+Nov 09, 2026 5:58:32 PM org.jline.utils.Log logr
+WARNING: Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+[34;1m[INFO] Executing SQL from file.[0m
+
+Command history file path: /root/.flink-sql-history
+Flink SQL> -- SILVER trips: Debezium changelog -> Iceberg UPSERT (latest state per trip).
+> -- Delivery chain: Postgres WAL -> Debezium (at-least-once) -> Redpanda -> Flink (exactly-once
+> -- state) -> Iceberg two-phase commit on checkpoint. Re-delivered CDC events are harmless here
+> -- because an upsert of the same (trip_id, row-state)[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> CREATE TEMPORARY TABLE src_trips (
+>   `trip_id`        BIGINT,
+>   `rider_id`       BIGINT,
+>   `driver_id`      BIGINT,
+>   `merchant_id`    BIGINT,
+>   `service_type`   STRING,
+>   `status`         STRING,
+>   `pickup_lat`     DOUBLE,
+>   `pickup_lon`     DOUBLE,
+>   `dropoff_lat`    DOUBLE,
+>   `dropoff_lon`    DOUBLE,
+>   `requested_at`   TIMESTAMP_LTZ(3),
+>   `accepted_at`    TIMESTAMP_LTZ(3),
+>   `picked_up_at`   TIMESTAMP_LTZ(3),
+>   `completed_at`   TIMESTAMP_LTZ(3),
+>   `quoted_eta_sec` INT,
+>   `fare_amount`    DOUBLE,
+>   `distance_km`    DOUBLE,
+>   `updated_at`     TIMESTAMP_LTZ(3),
+>   PRIMARY KEY (`trip_id`) NOT ENFORCED
+> ) WITH (
+>   'connector' = 'kafka',
+>   'topic' = 'pg.public.trips',
+>   'properties.bootstrap.servers' = 'redpanda:9092',
+>   'properties.group.id' = 'flink-silver-trips',
+>   'scan.startup.mode' = 'earliest-offset',
+>   'format' = 'debezium-json',
+>   'debezium-json.timestamp-format.standard' = 'ISO-8601',
+>   'debezium-json.ignore-parse-errors' = 'false'
+> )[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> CREATE TEMPORARY VIEW v_trips AS
+> SELECT
+>   `trip_id`,
+>   CAST(`requested_at` AS DATE)                    AS `requested_date`,
+>   `rider_id`,
+>   `driver_id`,
+>   `merchant_id`,
+>   `service_type`,
+>   `status`,
+>   `pickup_lat`,
+>   `pickup_lon`,
+>   `dropoff_lat`,
+>   `dropoff_lon`,
+>   h3_cell(`pickup_lat`,  `pickup_lon`,  8)        AS `pickup_h3`,
+>   h3_cell(`dropoff_lat`, `dropoff_lon`, 8)        AS `dropoff_h3`,
+>   CAST(`requested_at` AS TIMESTAMP(3))            AS `requested_at`,
+>   CAST(`accepted_at`  AS TIMESTAMP(3))            AS `accepted_at`,
+>   CAST(`picked_up_at` AS TIMESTAMP(3))            AS `picked_up_at`,
+>   CAST(`completed_at` AS TIMESTAMP(3))            AS `completed_at`,
+>   `quoted_eta_sec`,
+>   CAST(TIMESTAMPDIFF(SECOND,
+>          CAST(`picked_up_at` AS TIMESTAMP(3)),
+>          CAST(`completed_at` AS TIMESTAMP(3))) AS INT) AS `actual_duration_sec`,
+>   `fare_amount`,
+>   `distance_km`,
+>   CAST(`updated_at` AS TIMESTAMP(3))[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> [34;1m[INFO] Submitting SQL update statement to the cluster...[0m
+[34;1m[INFO] SQL update statement has been successfully submitted to the cluster:[0m
+Job ID: a605aaad3f1a323375b7d5cdc941c2df
+
+
+Flink SQL> 
+Shutting down the session...
+done.
+submitting jobs/21_silver_pings.sql
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+Successfully initialized from sql script: file:/opt/flink/sql/init.sql
+Nov 09, 2026 5:58:44 PM org.jline.utils.Log logr
+WARNING: Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+[34;1m[INFO] Executing SQL from file.[0m
+
+Command history file path: /root/.flink-sql-history
+Flink SQL> -- SILVER pings: event-time source -> (a) deduplicated silver table, (b)[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> -- Dedup state is keyed on (driver_id, seq) and must be bounded. TTL trades memory for the
+> -- longest duplicate-delay you can still catch. Replayer injects dups up to 30 s apart; real
+> -- producer retries are seconds, replays can be hours. Pick consciously (DESIGN.md section 5)[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> CREATE TEMPORARY TABLE src_pings (
+>   `driver_id`   BIGINT,
+>   `seq`         BIGINT,
+>   `event_ts_ms` BIGINT,
+>   `lat`         DOUBLE,
+>   `lon`         DOUBLE,
+>   `speed_kph`   DOUBLE,
+>   `event_time`  AS TO_TIMESTAMP_LTZ(`event_ts_ms`, 3),
+>   `proc_time`   AS PROCTIME(),
+>   WATERMARK FOR `event_time` AS `event_time` - INTERVAL '30' SECOND
+> ) WITH (
+>   'connector' = 'kafka',
+>   'topic' = 'driver.pings',
+>   'properties.bootstrap.servers' = 'redpanda:9092',
+>   'properties.group.id' = 'flink-silver-pings',
+>   'scan.startup.mode' = 'earliest-offset',
+>   'format' = 'json',
+>   'json.ignore-parse-errors' = 'false'
+> )[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> EXECUTE STATEMENT SET
+> BEGIN
+> 
+>   -- (a) keep-first dedup on (driver_id, seq). Late-but-unique pings ARE kept: the lake is the
+>   -- complete record; lateness only matters for the streaming gold windows.
+>   INSERT INTO lakehouse.silver.driver_pings
+>   SELECT
+>     `driver_id`,
+>     `seq`,
+>     CAST(`event_time` AS TIMESTAMP(3)),
+>     `lat`,
+>     `lon`,
+>     h3_cell(`lat`, `lon`, 8),
+>     `speed_kph`,
+>     CAST(CAST(`event_time` AS TIMESTAMP(3)) AS DATE)
+>   FROM (
+>     SELECT *,
+>            ROW_NUMBER() OVER (PARTITION BY `driver_id`, `seq` ORDER BY `proc_time` ASC) AS rn
+>     FROM src_pings
+>   )
+>   WHERE rn = 1;
+> 
+>   -- (b) pings whose 1-minute window had already closed when they arrived (i.e. the gold
+>   -- window job would drop them). Approximation: window_end <= current watermark.
+>   -- Verify empirically with Experiment E2 (docs/EXPERIMENTS.md).
+>   INSERT INTO lakehouse.silver.driver_pings_late
+>   SELECT
+>     `driver_id`,
+>     `seq`,
+>     CAST(`event_time` AS TIMESTAMP(3)),
+>     `lat`,
+>     `lon`,
+>     CAST(CURRENT_WATERMARK(`event_time`) AS TIMESTAMP(3)),
+>     CAST(TIMESTAMPDIFF(SECOND,
+>            CAST(`event_time` AS TIMESTAMP(3)),
+>            CAST(CURRENT_WATERMARK(`event_time`) AS TIMESTAMP(3))) AS INT),
+>     CAST(CAST(`event_time` AS TIMESTAMP(3)) AS DATE)
+>   FROM src_pings
+>   WHERE CURRENT_WATERMARK(`event_time`) IS NOT NULL
+>     AND TIMESTAMPADD(MINUTE, 1, FLOOR(CAST(`event_time` AS TIMESTAMP(3)) TO MINUTE))
+>           <= CAST(CURRENT_WATERMARK(`event_time`) AS TIMESTAMP(3))[34;1m[INFO] Submitting SQL update statement to the cluster...[0m
+[34;1m[INFO] SQL update statement has been successfully submitted to the cluster:[0m
+Job ID: 9e2e6158b5ac5d2619d97cb681189ea1
+
+
+Flink SQL> 
+Shutting down the session...
+done.
+submitting jobs/23_silver_dim_versions.sql
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+Successfully initialized from sql script: file:/opt/flink/sql/init.sql
+Nov 09, 2026 5:58:54 PM org.jline.utils.Log logr
+WARNING: Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+[34;1m[INFO] Executing SQL from file.[0m
+
+Command history file path: /root/.flink-sql-history
+Flink SQL> -- SILVER dimension version logs (inputs to SCD2). Append-only: one row per CDC change.
+> -- Reads the Debezium envelope as plain JSON (not debezium-json)[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> CREATE TEMPORARY TABLE src_drivers (
+>   `op`     STRING,
+>   `after`  ROW<
+>              `driver_id`    BIGINT,
+>              `vehicle_type` STRING,
+>              `city`         STRING,
+>              `rating`       DOUBLE,
+>              `status`       STRING,
+>              `updated_at`   TIMESTAMP_LTZ(3)>,
+>   `source` ROW<`lsn` BIGINT>
+> ) WITH (
+>   'connector' = 'kafka',
+>   'topic' = 'pg.public.drivers',
+>   'properties.bootstrap.servers' = 'redpanda:9092',
+>   'properties.group.id' = 'flink-silver-drivers',
+>   'scan.startup.mode' = 'earliest-offset',
+>   'format' = 'json',
+>   'json.timestamp-format.standard' = 'ISO-8601',
+>   'json.ignore-parse-errors' = 'false'
+> )[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> CREATE TEMPORARY TABLE src_merchants (
+>   `op`     STRING,
+>   `after`  ROW<
+>              `merchant_id`    BIGINT,
+>              `category`       STRING,
+>              `tier`           STRING,
+>              `city`           STRING,
+>              `lat`            DOUBLE,
+>              `lon`            DOUBLE,
+>              `commission_pct` DOUBLE,
+>              `updated_at`     TIMESTAMP_LTZ(3)>,
+>   `source` ROW<`lsn` BIGINT>
+> ) WITH (
+>   'connector' = 'kafka',
+>   'topic' = 'pg.public.merchants',
+>   'properties.bootstrap.servers' = 'redpanda:9092',
+>   'properties.group.id' = 'flink-silver-merchants',
+>   'scan.startup.mode' = 'earliest-offset',
+>   'format' = 'json',
+>   'json.timestamp-format.standard' = 'ISO-8601',
+>   'json.ignore-parse-errors' = 'false'
+> )[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> EXECUTE STATEMENT SET
+> BEGIN
+> 
+>   -- op: r = snapshot read, c = insert, u = update. Deletes (d) have after = NULL and are not
+>   -- modeled yet (soft-delete via status='suspended' instead). Exercise: handle op = 'd'.
+>   INSERT INTO lakehouse.silver.driver_versions
+>   SELECT
+>     `after`.`driver_id`,
+>     CAST(`after`.`updated_at` AS TIMESTAMP(3)),
+>     `op`,
+>     `after`.`vehicle_type`,
+>     `after`.`city`,
+>     `after`.`rating`,
+>     `after`.`status`,
+>     `source`.`lsn`,
+>     CAST(CAST(`after`.`updated_at` AS TIMESTAMP(3)) AS DATE)
+>   FROM src_drivers
+>   WHERE `op` IN ('r', 'c', 'u') AND `after`.`driver_id` IS NOT NULL;
+> 
+>   INSERT INTO lakehouse.silver.merchant_versions
+>   SELECT
+>     `after`.`merchant_id`,
+>     CAST(`after`.`updated_at` AS TIMESTAMP(3)),
+>     `op`,
+>     `after`.`category`,
+>     `after`.`tier`,
+>     `after`.`city`,
+>     `after`.`lat`,
+>     `after`.`lon`,
+>     h3_cell(`after`.`lat`, `after`.`lon`, 8),
+>     `after`.`commission_pct`,
+>     `source`.`lsn`,
+>     CAST(CAST(`after`.`updated_at` AS TIMESTAMP(3)) AS DATE)
+>   FROM src_merchants
+>   WHERE `op` IN ('r', 'c', 'u')[34;1m[INFO] Submitting SQL update statement to the cluster...[0m
+[34;1m[INFO] SQL update statement has been successfully submitted to the cluster:[0m
+Job ID: 94f8fc0c6ef3a40b3dd9b5a8609a8ac8
+
+
+Flink SQL> 
+Shutting down the session...
+done.
+submitting jobs/30_gold_demand_supply.sql
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+WARNING: Unknown module: jdk.compiler specified to --add-exports
+Successfully initialized from sql script: file:/opt/flink/sql/init.sql
+Nov 09, 2026 5:59:05 PM org.jline.utils.Log logr
+WARNING: Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+[34;1m[INFO] Executing SQL from file.[0m
+
+Command history file path: /root/.flink-sql-history
+Flink SQL> -- GOLD: event-time tumbling windows (1 min) per H3 res-8 cell.
+> --   demand = trip requests created in the window     (from CDC inserts, op = 'c')
+> --   supply = distinct drivers that pinged in the window
+> --
+> -- Why COUNT(DISTINCT driver_id) for supply and no dedup operator here: the aggregate is
+> -- naturally idempotent under duplicate pings, so gold needs no dedup state at all.
+> -- Why op = 'c' for demand: windows need an append-only input; the debezium-json changelog
+> -- also carries updates. Plain-JSON envelope + filter gives exactly one row per new trip.
+> --
+> -- Watermark = max(event_time) - 30 s. A ping/request later than that falls into a window that
+> -- has already fired and is dropped from THIS table (but kept in silver). The nightly batch job
+> -- (batch/40_reconcile_gold.sql)[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> CREATE TEMPORARY TABLE src_trip_envelope (
+>   `op`    STRING,
+>   `ts_ms` BIGINT,
+>   `after` ROW<
+>             `trip_id`      BIGINT,
+>             `pickup_lat`   DOUBLE,
+>             `pickup_lon`   DOUBLE,
+>             `requested_at` TIMESTAMP_LTZ(3)>,
+>   -- `after` is NULL on deletes; fall back to connector time so the rowtime is never NULL.
+>   `requested_time` AS COALESCE(`after`.`requested_at`, TO_TIMESTAMP_LTZ(`ts_ms`, 3)),
+>   WATERMARK FOR `requested_time` AS `requested_time` - INTERVAL '30' SECOND
+> ) WITH (
+>   'connector' = 'kafka',
+>   'topic' = 'pg.public.trips',
+>   'properties.bootstrap.servers' = 'redpanda:9092',
+>   'properties.group.id' = 'flink-gold-demand',
+>   'scan.startup.mode' = 'earliest-offset',
+>   'format' = 'json',
+>   'json.timestamp-format.standard' = 'ISO-8601',
+>   'json.ignore-parse-errors' = 'false'
+> )[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> CREATE TEMPORARY TABLE src_pings (
+>   `driver_id`   BIGINT,
+>   `seq`         BIGINT,
+>   `event_ts_ms` BIGINT,
+>   `lat`         DOUBLE,
+>   `lon`         DOUBLE,
+>   `speed_kph`   DOUBLE,
+>   `event_time`  AS TO_TIMESTAMP_LTZ(`event_ts_ms`, 3),
+>   WATERMARK FOR `event_time` AS `event_time` - INTERVAL '30' SECOND
+> ) WITH (
+>   'connector' = 'kafka',
+>   'topic' = 'driver.pings',
+>   'properties.bootstrap.servers' = 'redpanda:9092',
+>   'properties.group.id' = 'flink-gold-supply',
+>   'scan.startup.mode' = 'earliest-offset',
+>   'format' = 'json',
+>   'json.ignore-parse-errors' = 'false'
+> )[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> CREATE TEMPORARY VIEW v_requests AS
+> SELECT
+>   `requested_time`,
+>   h3_cell(`after`.`pickup_lat`, `after`.`pickup_lon`, 8)[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> CREATE TEMPORARY VIEW v_pings AS
+> SELECT
+>   `event_time`,
+>   `driver_id`,
+>   h3_cell(`lat`, `lon`, 8)[34;1m[INFO] Execute statement succeeded.[0m
+
+Flink SQL> 
+> EXECUTE STATEMENT SET
+> BEGIN
+> 
+>   INSERT INTO lakehouse.gold.h3_demand_1m
+>   SELECT
+>     window_start,
+>     window_end,
+>     `h3_r8`,
+>     COUNT(*),
+>     CAST(window_start AS DATE)
+>   FROM TABLE(TUMBLE(TABLE v_requests, DESCRIPTOR(`requested_time`), INTERVAL '1' MINUTE))
+>   GROUP BY window_start, window_end, `h3_r8`;
+> 
+>   INSERT INTO lakehouse.gold.h3_supply_1m
+>   SELECT
+>     window_start,
+>     window_end,
+>     `h3_r8`,
+>     COUNT(DISTINCT `driver_id`),
+>     CAST(window_start AS DATE)
+>   FROM TABLE(TUMBLE(TABLE v_pings, DESCRIPTOR(`event_time`), INTERVAL '1' MINUTE))[34;1m[INFO] Submitting SQL update statement to the cluster...[0m
+[34;1m[INFO] SQL update statement has been successfully submitted to the cluster:[0m
+Job ID: 51e541b5b96897118de962fdb95cba67
+
+
+Flink SQL> 
+Shutting down the session...
+done.
+jobs submitted. Open http://localhost:8081 to watch them.

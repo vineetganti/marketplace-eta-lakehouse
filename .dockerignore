@@ -1,0 +1,13 @@
+# Docker build context is the project root; keep it small (a .venv can be hundreds of MB).
+.venv/
+.git/
+data/
+docs/
+tests/
+replayer/
+__pycache__/
+*.pyc
+udf/target/
+manifest*.json
+chaos.log
+flink/sql/_rendered/

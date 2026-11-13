@@ -1,0 +1,28 @@
+### Handy REST calls. Install the "REST Client" extension (humao.rest-client) and click "Send Request".
+
+### Debezium: connector status (look for state RUNNING on connector AND task)
+GET http://localhost:8083/connectors/pg-marketplace/status
+
+### Debezium: restart a failed task
+POST http://localhost:8083/connectors/pg-marketplace/tasks/0/restart
+
+### Flink: list jobs (state, start time)
+GET http://localhost:8081/jobs/overview
+
+### Flink: cluster overview (slots free/used)
+GET http://localhost:8081/overview
+
+### Flink: checkpoints of one job (replace the id) - watch duration, size, failures
+GET http://localhost:8081/jobs/REPLACE_JOB_ID/checkpoints
+
+### Iceberg REST: namespaces
+GET http://localhost:8181/v1/namespaces
+
+### Iceberg REST: tables in silver
+GET http://localhost:8181/v1/namespaces/silver/tables
+
+### Redpanda admin: broker health
+GET http://localhost:9644/v1/cluster/health_overview
+
+### Trino: cluster info
+GET http://localhost:8080/v1/info

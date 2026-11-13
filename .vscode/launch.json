@@ -1,0 +1,38 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Replayer: dry run (debug)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "replayer",
+      "args": ["run", "--dry-run", "--speedup", "0", "--limit", "200", "--duration-min", "10"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Replayer: live (needs stack up)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "replayer",
+      "args": ["run", "--source", "synth", "--speedup", "60", "--duration-min", "30", "--manifest", "manifest.json"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Reconcile vs manifest",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/reconcile.py",
+      "args": ["--manifest", "manifest.json"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "pytest: current file",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["${file}", "-x", "-q"],
+      "console": "integratedTerminal"
+    }
+  ]
+}
